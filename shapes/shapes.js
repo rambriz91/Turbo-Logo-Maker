@@ -3,7 +3,7 @@ const { throwError } = require("rxjs");
 
 class SVG {
     constructor() {
-        this.shape = '';
+        this.svgShape = '';
         this.text = '';
 
     }
@@ -11,26 +11,23 @@ class SVG {
         return `<svg version="1.1"
          width="300" height="200"
          xmlns="http://www.w3.org/2000/svg">
-         ${this.shape}
+         ${this.svgShape}
          ${this.text}
          </svg>`
     };
     setText(fontColor, fontFamily, textInput) {
-        this.text = `<text x="150" y="125" font-size="60" text-anchor="middle" fill="${fontColor}" font-family='${fontFamily}>${textInput}</text>`
-        
+        this.text = `<text x="150" y="125" font-size="60" text-anchor="middle" fill="${fontColor}" font-family="${fontFamily}">${textInput}</text>`
+
     };
-    setShape(shape) {
-        this.shape = shape.render();
+    setShape(shapeObj) {
+        this.svgShape = shapeObj.render();
     };
 };
 
 function generateSVG(data) {
-   
+
     const { shape, color, textInput, fontColor, fontFamily } = data;
 
-    const newLogo = new SVG();
-
-    //newLogo.render();
     let shapeObj;
     switch (shape) {
         case "Circle":
@@ -49,10 +46,10 @@ function generateSVG(data) {
         default:
             throw new Error('Please enter a valid shape!');
     }
-
-     newLogo.setText(fontColor, fontFamily, textInput);
-    newLogo.setShape(shape);
-
+    const newLogo = new SVG();
+    newLogo.setText(fontColor, fontFamily, textInput);
+    newLogo.setShape(shapeObj);
+    return newLogo.render();
 };
 
 
@@ -65,27 +62,12 @@ class Shape {
     }
 };
 
-class Text {
-    constructor(textInput, fontColor, fontFamily) {
-        this.textInput = textInput;
-        this.fontColor = fontColor;
-        this.fontFamily = fontFamily;
-
-    }
-    renderText() {
-        if (this.textInput.length > 3 && this.textInput.length < 1) {
-            throw new Error('textInput must be less than three characters and have at least one character.')
-        }
-        return `<text x="150" y="125" font-size="60" text-anchor="middle" fill="${this.fontColor}" font-family='${this.fontFamily}>${this.textInput}</text>`
-    }
-};
-
 class Rectangle extends Shape {
     constructor(color) {
         super(color);
     }
     render() {
-        `<rect x="150" y="100" rx="10" ry="10" width="200" height="200" fill="${this.color}/>`
+       return `<rect x="50" y="25" width="200px" height="200px" fill="${this.color}"/>`
     }
 };
 
@@ -94,7 +76,7 @@ class Circle extends Shape {
         super(color);
     }
     render() {
-        return `<circle cx="150" cy="100" r="80" fill="${this.color}"/>`
+        return `<circle cx="150" cy="110" r="80" fill="${this.color}"/>`
     }
 };
 
@@ -103,7 +85,7 @@ class Triangle extends Shape {
         super(color);
     }
     render() {
-        return `<polygon points="300 300, 150 0, 0 300" fill="${this.color}"/>`
+        return `<polygon points="300 200, 150 0, 0 200" fill="${this.color}"/>`
     }
 }
 
@@ -112,7 +94,7 @@ class Ellipse extends Shape {
         super(color)
     }
     render() {
-        return `<ellipse cx="150" cy="100" rx="100" ry="60" fill="${this.color}/>`
+        return `<ellipse cx="150" cy="110" rx="100" ry="60" fill="${this.color}"/>`
     }
 }
 
