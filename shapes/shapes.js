@@ -38,8 +38,8 @@ function generateSVG(data) {
         case "Ellipse":
             shapeObj = new Ellipse(color);
             break;
-        case "Rectangle":
-            shapeObj = new Rectangle(color);
+        case "Square":
+            shapeObj = new Square(color);
             break;
 
         default:
@@ -61,7 +61,7 @@ class Shape {
     }
 };
 
-class Rectangle extends Shape {
+class Square extends Shape {
     constructor(color) {
         super(color);
     }
@@ -97,4 +97,4 @@ class Ellipse extends Shape {
     }
 }
 
-module.exports = {generateSVG, Ellipse, Circle, Rectangle, Triangle};
+module.exports = {generateSVG, Ellipse, Circle, Square, Triangle};

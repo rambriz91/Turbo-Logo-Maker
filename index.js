@@ -1,5 +1,5 @@
 const fs = require('fs');
-const generateSVG = require('./shapes/shapes.js');
+const {generateSVG} = require('./shapes/shapes.js');
 const inquirer = require('inquirer');
 
 inquirer
@@ -8,7 +8,7 @@ inquirer
             type: 'list',
             name: 'shape',
             message: `Please select a shape for your logo.`,
-            choices: ['Circle', 'Triangle', 'Rectangle', 'Ellipse']
+            choices: ['Circle', 'Triangle', 'Square', 'Ellipse']
         },
         {
             type: 'input',
@@ -34,13 +34,12 @@ inquirer
     ])
 .then((data) => {
     const {shape, color, textInput, fontColor, fontFamily} = data;
-    console.log(data);
-    console.log(generateSVG(data));
-    if (textInput < 1 || textInput > 3) {
+    if (textInput.length < 1 || textInput.length > 3) {
         console.log('Logo text must include between 1-3 characters.')
         return;
+    } else {
+    fs.writeFile(`logo-output/${color}-${shape}-${textInput}.svg`, generateSVG(data), (err) =>
+    err ? console.log(err) : console.log('Success!')
+    );
     }
-fs.writeFile('logo.svg', generateSVG(data), (err) =>
-err ? console.log(err) : console.log('Success!')
-);
 })
