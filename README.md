@@ -14,7 +14,7 @@ Turbo Logo Maker allows a user to generate a logo by using a Node.js command-lin
 
 ## Usage
 
-Usage Link: 
+Usage Link: https://drive.google.com/file/d/1qQP56w1kfrmVXVWiRVUuTxd6gTA8GgIw/view
 
 ## Links
 
