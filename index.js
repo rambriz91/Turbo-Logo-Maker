@@ -1,5 +1,5 @@
 const fs = require('fs');
-const {generateSVG} = require('./shapes/shapes.js');
+const {generateSVG} = require('./lib/shapes.js');
 const inquirer = require('inquirer');
 
 inquirer
@@ -38,8 +38,8 @@ inquirer
         console.log('Logo text must include between 1-3 characters.')
         return;
     } else {
-    fs.writeFile(`logo-output/${color}-${shape}-${textInput}.svg`, generateSVG(data), (err) =>
-    err ? console.log(err) : console.log('Success!')
+    fs.writeFile(`examples/${color}-${shape}-${textInput}-logo.svg`, generateSVG(data), (err) =>
+    err ? console.log(err) : console.log(`Generated ${color}-${shape}-${textInput}-logo.svg`)
     );
     }
 })
